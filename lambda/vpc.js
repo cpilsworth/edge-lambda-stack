@@ -1,9 +1,10 @@
 /**
  * @param {*} event
  */
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
   console.log('%j', event)
   return {
-    name: event.name.toUpperCase()
+    ...event,
+    vpc: context.functionName
   }
 }

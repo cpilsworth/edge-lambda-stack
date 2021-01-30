@@ -12,7 +12,7 @@ const lambda = new AWS.Lambda()
 exports.handler = async (event, context) => {
   const params = {
     FunctionName: context.functionName.replace('-edge-', '-vpc-'),
-    Payload: JSON.stringify({ name: 'edge-vpc' })
+    Payload: JSON.stringify({ edge: context.functionName })
   }
   console.log('%j', params)
   const vpcResponse = await lambda.invoke(params)
