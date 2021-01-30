@@ -10,13 +10,14 @@ const lambda = new AWS.Lambda()
  * @returns {CloudFrontResultResponse}
  */
 exports.handler = async (event, context) => {
+  let { functionName } = context;
+
   const params = {
-    FunctionName: context.functionName.replace('-edge-', '-vpc-'),
-    Payload: JSON.stringify({ edge: context.functionName })
+    FunctionName: vpcLambdaName(functionName),
+    Payload: JSON.stringify({ edge: functionName })
   }
-  console.log('%j', params)
-  const vpcResponse = await lambda.invoke(params)
-    .promise()
+  
+  const vpcResponse = await lambda.invoke(params).promise();
 
   return {
     status: 200,
@@ -28,4 +29,12 @@ exports.handler = async (event, context) => {
       ]
     }
   }
+}
+
+/**
+ * Calculate the vpc lambda function name from the edge lambda name
+ * @param {string} edgeLambdaName 
+ */
+function vpcLambdaName(edgeLambdaName) {
+  return edgeLambdaName.replace('-edge-', '-vpc-');
 }
