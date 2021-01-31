@@ -1,6 +1,6 @@
 # edge-lambda-stack
 
-This project is a demonstration of linking edge and vpc lambdas where multiple stacks are deployed.  
+This project is a demonstration of linking edge and vpc lambdas where __multiple stacks__ are deployed.  
 
 ## Problem
 
